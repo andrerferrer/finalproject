@@ -17,15 +17,19 @@ User.destroy_all
 
 puts "Starting creating users..."
 
-10.times do
-  User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
-              document: %w(938.166.070-04 085.377.620-24 204.142.880-50 693.469.990-47
-              589.247.960-97 179.850.920-21 245.784.060-08 400.757.280-10 146.037.620-03
-              129.156.930-80).sample, phone: Faker::PhoneNumber.cell_phone,
-              address: Faker::Address.full_address, email: Faker::Internet.email,
-              password: "123456")
+10.times do |x|
+  User.create(
+    first_name: Faker::Name.first_name, 
+    last_name: Faker::Name.last_name,
+    document: %w(938.166.070-04 085.377.620-24 204.142.880-50 693.469.990-47
+    589.247.960-97 179.850.920-21 245.784.060-08 400.757.280-10 146.037.620-03
+    129.156.930-80).sample, 
+    phone: Faker::PhoneNumber.cell_phone,
+    address: Faker::Address.full_address, 
+    email: Rails.env == 'development' ? "player@#{x.humanize}.com" : Faker::Internet.email,
+    password: "123456"
+  )
 end
-
 
 puts "#{User.count} users created!"
 
